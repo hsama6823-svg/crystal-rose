@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"> <!-- تم إرجاع لغة الموقع للإنجليزية والاتجاه من اليسار لليمين -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Rose | Elegant Jewelry & Accessories</title>
+    
+    <!-- 1. استدعاء مكتبة Tailwind CSS المسؤولة عن تنسيق الألوان، الأبعاد، والـ Layout بدون كتابة ملف CSS خارجي -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. استدعاء الخطوط من Google Fonts (Playfair للخط الكلاسيكي الفخم، و Montserrat للخط العصري الناعم) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;500&family=Playfair+Display:ital,wght=0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- 3. استدعاء مكتبة FontAwesome لعرض أيقونات السوشيال ميديا، القلب، وسلة المشتريات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 4. إعداد الألوان المخصصة للمشروع (Tailwind Configuration) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4AF37',       /* اللون الذهبي للماركة */
+                            'gold-hover': '#AA8413', /* اللون الذهبي عند تمرير الماوس */
+                            blush: '#FFF0F0',      /* لون وردي خفيف جداً للخلفيات الدافئة */
+                            beige: '#FDFBF7',      /* لون البيج الهادئ وهو الخلفية الأساسية للموقع */
+                            charcoal: '#2C2A29'    /* لون رمادي غامق جداً (شيك وبديل مريح للعين عن الأسود السادة) */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FDFBF7; color: #2C2A29; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-brand-beige text-brand-charcoal antialiased">
+
+    <!-- ========================================================= -->
+    <!-- 1. شريط التنقل العلوي (NAVIGATION BAR) -->
+    <!-- الوظيفة: يحتوي على اسم البراند وروابط التنقل والسلة وأيقونة الموبايل -->
+    <!-- ========================================================= -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <!-- اللوجو أو اسم المتجر الرئيسي -->
+            <a href="#" class="font-serif text-2xl lg:text-3xl tracking-widest text-brand-charcoal hover:text-brand-gold transition-colors">
+                CRYSTAL ROSE
+            </a>
+            
+            <!-- روابط التنقل للشاشات الكبيرة (تختفي تلقائياً على الموبايل بفضل الكلاس hidden md:flex) -->
+            <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest font-medium uppercase">
+                <a href="#" class="text-brand-gold border-b border-brand-gold pb-1">Home</a>
+                <a href="#shop" class="hover:text-brand-gold transition-colors pb-1">Shop</a>
+                <a href="#about" class="hover:text-brand-gold transition-colors pb-1">About</a>
+                <a href="#contact" class="hover:text-brand-gold transition-colors pb-1">Contact</a>
+            </div>
+
+            <!-- الأيقونات التفاعلية (المفضلة والسلة وزر المنيو للموبايل) -->
+            <div class="flex items-center space-x-5 text-lg">
+                <a href="#" class="hover:text-brand-gold transition-colors" aria-label="Favorites"><i class="far fa-heart"></i></a>
+                <a href="#" class="hover:text-brand-gold transition-colors relative" aria-label="Cart">
+                    <i class="bag-icon fas fa-shopping-bag"></i>
+                    <!-- العداد الأحمر/الذهبي فوق السلة ويظهر عدد المنتجات -->
+                    <span class="absolute -top-2 -right-2 bg-brand-gold text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-sans">0</span>
+                </a>
+                <!-- هذا الزر (الهامبرغر منيو) يظهر فقط على الموبايل ليفتح القائمة -->
+                <button class="md:hidden text-xl focus:outline-none" id="menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- القائمة المنسدلة الخاصة بالموبايل (تفتح وتغلق عبر كود الـ JavaScript في أسفل الصفحة) -->
+        <div class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3 font-medium uppercase tracking-wider text-sm shadow-inner" id="mobile-menu">
+            <a href="#" class="block text-brand-gold py-1">Home</a>
+            <a href="#shop" class="block hover:text-brand-gold transition-colors py-1">Shop</a>
+            <a href="#about" class="block hover:text-brand-gold transition-colors py-1">About</a>
+            <a href="#contact" class="block hover:text-brand-gold transition-colors py-1">Contact</a>
+        </div>
+    </nav>
+
+
+    <!-- ========================================================= -->
+    <!-- 2. الواجهة الترحيبية للموقع (HERO BANNER) -->
+    <!-- الوظيفة: أول جزء تقع عليه عين العميل ويحتوي على النص الحماسي والصورة الرئيسية -->
+    <!-- ========================================================= -->
+    <header class="relative bg-brand-blush overflow-hidden min-h-[calc(100vh-5rem)] flex items-center">
+        <!-- دوائر الألوان المدمجة بالخلفية لإعطاء شكل فني ناعم (Blur Effects) -->
+        <div class="absolute inset-0 z-0 opacity-40">
+            <div class="absolute top-10 right-10 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-10 left-10 w-72 h-72 bg-amber-100 rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 py-12 lg:py-20 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- النصوص والزر (الجانب الأيسر على الماكينات الكبيرة) -->
+            <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                <span class="inline-block text-xs uppercase tracking-[0.3em] text-brand-gold font-medium">New Collection</span>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal leading-[1.15]">
+                    Elegant Accessories <br class="hidden sm:inline"><span class="italic font-normal">for Every Style</span>
+                </h1>
+                <p class="text-gray-600 text-base sm:text-lg tracking-wide font-light max-w-md mx-auto lg:mx-0">
+                    Shine with every detail. Discover finely crafted, minimalist jewelry designed to complement your unique essence.
+                </p>
+                <div class="pt-4">
+                    <a href="#shop" class="inline-block bg-brand-charcoal text-white px-10 py-4 rounded-full text-xs font-medium uppercase tracking-[0.2em] shadow-lg shadow-gray-200 hover:bg-brand-gold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                        Shop Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- الصورة الرئيسية الكبيرة للواجهة -->
+            <div class="lg:col-span-6 flex justify-center">
+                <div class="relative w-full max-w-md aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl shadow-stone-200/80 border-[12px] border-white">
+                    <!-- ⬇️ لتغيير الصورة الترحيبية: ضعي رابط صورتك الجديدة أو اسم الملف (مثال: hero.jpg) مكان الرابط الموجود في src في الأسفل ⬇️ -->
+                    <img src="WhatsApp Image .jpeg"
+                         alt="Elegant luxury jewelry showcase" 
+                         class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ========================================================= -->
+    <!-- 3. معرض المنتجات المميزة (FEATURED PRODUCTS SECTION) -->
+    <!-- الوظيفة: شبكة عرض (Grid) تعرض 4 منتجات بشكل منظم ومتجاوب مع جميع الشاشات -->
+    <!-- ========================================================= -->
+    <section id="shop" class="max-w-7xl mx-auto px-6 py-20 lg:py-28">
+        <!-- عنوان القسم الرئيسي والخط الذهبي الصغير -->
+        <div class="text-center space-y-3 mb-16">
+            <span class="text-xs uppercase tracking-[0.25em] text-brand-gold font-medium">Curated Pieces</span>
+            <h2 class="font-serif text-3xl sm:text-4xl text-brand-charcoal">The Signature Collection</h2>
+            <div class="w-12 h-[1px] bg-brand-gold mx-auto mt-4"></div>
+        </div>
+
+        <!-- شبكة عرض كروت المنتجات -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <!-- كارت المنتج رقم 1 -->
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-50 flex flex-col">
+                <div class="relative aspect-square overflow-hidden bg-stone-50">
+                    <!-- ⬇️ ضعي هنا رابط أو مسار صورة المنتج الأول ⬇️ -->
+                    <img src="compo.jpeg" alt="Aura Pendant Necklace" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                   
+                </div>
+                <div class="p-6 flex flex-col flex-grow text-center">
+                    <span class="text-[11px] text-gray-400 uppercase tracking-widest mb-1">combo 4 pieces</span>
+                    <p class="text-sm font-medium text-gray-600 mt-auto">$280.00</p>
+                </div>
+            </div>
+
+            <!-- كارت المنتج رقم 2 -->
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-50 flex flex-col">
+                <div class="relative aspect-square overflow-hidden bg-stone-50">
+                    <!-- ⬇️ ضعي هنا رابط أو مسار صورة المنتج الثاني ⬇️ -->
+                    <img src="ring.jpeg" alt="Minimalist Gold Ring" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6 flex flex-col flex-grow text-center">
+                    <span class="text-[11px] text-gray-400 uppercase tracking-widest mb-1">Rings</span>
+                    <h3 class="font-serif text-base text-brand-charcoal font-medium group-hover:text-brand-gold transition-colors mb-2">Stacked Eternity Band</h3>
+                    <p class="text-sm font-medium text-gray-600 mt-auto">$95.00</p>
+                </div>
+            </div>
+
+            <!-- كارت المنتج رقم 3 -->
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-50 flex flex-col">
+                <div class="relative aspect-square overflow-hidden bg-stone-50">
+                    <!-- ⬇️ ضعي هنا رابط أو مسار صورة المنتج الثالث ⬇️ -->
+                    <img src="cool.jpeg" alt="Delicate Gold Chain Bracelet" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6 flex flex-col flex-grow text-center">
+                    <span class="text-[11px] text-gray-400 uppercase tracking-widest mb-1">Bracelets</span>
+                    <h3 class="font-serif text-base text-brand-charcoal font-medium group-hover:text-brand-gold transition-colors mb-2">Solitaire Chain Link</h3>
+                    <p class="text-sm font-medium text-gray-600 mt-auto">$120.00</p>
+                </div>
+            </div>
+
+            <!-- كارت المنتج رقم 4 -->
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-50 flex flex-col">
+                <div class="relative aspect-square overflow-hidden bg-stone-50">
+                    <!-- ⬇️ ضعي هنا رابط أو مسار صورة المنتج الرابع ⬇️ -->
+                    <img src="prr.jpeg" alt="Delicate Gold Chain Bracelet" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6 flex flex-col flex-grow text-center">
+                    <span class="text-[11px] text-gray-400 uppercase tracking-widest mb-1">Earrings</span>
+                    <h3 class="font-serif text-base text-brand-charcoal font-medium group-hover:text-brand-gold transition-colors mb-2">Baroque Pearl Droplets</h3>
+                    <p class="text-sm font-medium text-gray-600 mt-auto">$160.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- 4. قسم من نحن / معلومات عن البراند (ABOUT US SECTION) -->
+    <!-- الوظيفة: يحكي للزبون قصة الماركة والمواد المستخدمة ليزيد من ثقة العميل -->
+    <!-- ========================================================= -->
+    <section id="about" class="bg-white border-y border-stone-100 py-20 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            <!-- الصور الفنية الجانبية لهذا القسم (صورتين بجوار بعضهما بارتفاعات مختلفة لمظهر عصري) -->
+            <div class="lg:col-span-5 order-2 lg:order-1 grid grid-cols-2 gap-4">
+                <div class="rounded-2xl overflow-hidden shadow-md aspect-[3/4] mt-8">
+                    <!-- ⬇️ صورة رقم 1 تخص كواليس العمل أو تفاصيل دقيقة للمجوهرات ⬇️ -->
+                    <img src="lacost.jpeg" alt="Detailed jewelry crafting" class="w-full h-full object-cover">
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-md aspect-[3/4]">
+                    <!-- ⬇️ صورة رقم 2 تخص طريقة ارتداء المجوهرات أو جلسة تصوير ⬇️ -->
+                    <img src="WhatsApp Image .jpeg" alt="Elegant accessories styling" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- النصوص التعريفية باللغة الإنجليزية -->
+            <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
+                <span class="text-xs uppercase tracking-[0.25em] text-brand-gold font-medium">Our Story</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-brand-charcoal leading-tight">
+                    Crafting Timeless Elegance For The Modern Woman
+                </h2>
+                <div class="w-12 h-[1px] bg-brand-gold my-4"></div>
+                <p class="text-gray-600 leading-relaxed font-light">
+                    Founded on the principles of conscious luxury and minimalist art, Crystal Rose creates delicate keepsakes meant to be worn close to your heart every single day. 
+                </p>
+                <p class="text-gray-600 leading-relaxed font-light">
+                    Every piece tells a story of fine craftsmanship, combining sustainably sourced materials, precious metals, and timeless designs that transition flawlessly from everyday simplicity to evening grandeur. We believe that true luxury lies in the micro-details.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- 5. نهاية الصفحة وقسم التواصل (CONTACT & FOOTER SECTION) -->
+    <!-- الوظيفة: الروابط القانونية، شبكات التواصل، حقوق الملكية، ووسائل الاتصال المباشر -->
+    <!-- ========================================================= -->
+    <footer id="contact" class="bg-brand-charcoal text-stone-300 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-stone-800">
+            
+            <!-- العمود الأول: نبذة عن اسم المتجر ورسالته -->
+            <div class="space-y-4">
+                <h3 class="font-serif text-xl tracking-widest text-white">CRYSTAL ROSE</h3>
+                <p class="text-xs tracking-wide text-stone-400 max-w-xs font-light">
+                    Elegant minimal jewelry designed to ground your aesthetic and help you shine through every chapter.
+                </p>
+            </div>
+
+            <!-- العمود الثاني: روابط التنقل السريع في أسفل الموقع -->
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Explore</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs font-light text-stone-400">
+                    <a href="#" class="hover:text-white transition-colors">Home</a>
+                    <a href="#shop" class="hover:text-white transition-colors">Shop All</a>
+                    <a href="#about" class="hover:text-white transition-colors">Our Story</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- العمود الثالث: معلومات الإيميل وأيقونات السوشيال ميديا التفاعلية -->
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase tracking-[0.2em] text-brand-gold font-medium">Connect With Us</h4>
+                <p class="text-xs font-light text-stone-400">hello@crystalrosejewelry.com</p>
+                
+                <!-- الأيقونات التفاعلية للشبكات الاجتماعية بعد إضافة الواتساب -->
+                <div class="flex space-x-5 text-lg pt-2">
+                    <!-- ⬇️ ضعي هنا رابط جروب الواتساب الخاص بكِ مكانه في الـ href بالأسفل ⬇️ -->
+                    <a href="https://chat.whatsapp.com/Hwf9IpjnMIiLfDiVh09AGg" target="_blank" class="text-stone-400 hover:text-green-500 transition-colors" aria-label="WhatsApp Group">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="text-stone-400 hover:text-brand-gold transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-stone-400 hover:text-brand-gold transition-colors" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="text-stone-400 hover:text-brand-gold transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-stone-400 hover:text-brand-gold transition-colors" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- السطر الأخير: حقوق الملكية الفكرية لعام 2026 وسياسة الخصوصية -->
+        <div class="max-w-7xl mx-auto px-6 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 tracking-wider">
+            <p>&copy; 2026 Crystal Rose Jewelry. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 sm:mt-0">
+                <a href="#" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-stone-300 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ========================================================= -->
+    <!-- 6. أكواد الـ JavaScript التفاعلية -->
+    <!-- الوظيفة: التحكم في فتح وإغلاق قائمة الموبايل (Responsive Menu Toggle) -->
+    <!-- ========================================================= -->
+    <script>
+        // ربط عناصر الـ HTML بمتغيرات داخل الجافا سكريبت باستعمال الـ ID
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // وظيفة الاستماع للنقرة (Click Event): عندما يضغط المستخدم على الزر، يتم مسح كلاس hidden ليظهر المنيو أو إعادته ليختفي
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // تحسين تجربة المستخدم: عند النقر على أي رابط داخل منيو الموبايل، تختفي القائمة تلقائياً
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
